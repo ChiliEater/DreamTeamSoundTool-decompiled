@@ -15,7 +15,12 @@ namespace DTSoundData
     /// <returns></returns>
     public enum SoundTypes : int
     {
-        WAVE, SE, SEB, STRSE, STRBGM, STRVOICE
+        WAVE = 0,
+        SE = 1,
+        SEB = 2,
+        STRSE = 4,
+        STRBGM = 5,
+        STRVOICE = 6
     }
 
     /// <summary>
@@ -65,6 +70,10 @@ namespace DTSoundData
         /// <param name="outFolder">The desired output folder</param>
         public void extractArchive(string outFolder)
         {
+            if (!Directory.Exists(outFolder))
+            {
+                Directory.CreateDirectory(outFolder);
+            }
             using BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open));
 
             foreach (KeyValuePair<int, SoundDataArcTable> table in tables)
@@ -77,7 +86,7 @@ namespace DTSoundData
 
                 foreach(KeyValuePair<int, SoundDataFile> file in table.Value.fileList)
                 {
-                    reader.BaseStream.Seek(table.Value.tableSize + file.Value.offset, SeekOrigin.Begin);
+                    reader.BaseStream.Seek(table.Value.tableStartOffset + file.Value.offset, SeekOrigin.Begin);
                     
                     using BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(str, file.Value.name + FILE_EXTENSION), FileMode.Create));
                     writer.Write(reader.ReadBytes(file.Value.size));
@@ -92,8 +101,8 @@ namespace DTSoundData
         /// </summary>
         private void parseArchive()
         {
-            using BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open));
             long length = new FileInfo(path).Length;
+            using BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open));
 
             while (reader.BaseStream.Position < length)
             {
@@ -107,7 +116,7 @@ namespace DTSoundData
                 arcTable.stringTableSize = reader.ReadInt32();
                 
                 // Get file infos
-                for (int entryKey = 0; entryKey < arcTable.entryCount; ++entryKey)
+                for (int entryKey = 0; entryKey < arcTable.entryCount; entryKey++)
                 {
                     reader.BaseStream.Seek(arcTable.tableStartOffset + OFFSET_PAD + entryKey * OFFSET_MULTIPLIER, SeekOrigin.Begin);
                     SoundDataFile file = new SoundDataFile();
@@ -121,7 +130,7 @@ namespace DTSoundData
                 reader.BaseStream.Seek(arcTable.tableStartOffset + OFFSET_PAD + arcTable.entryCount * OFFSET_MULTIPLIER, SeekOrigin.Begin);
 
                 // Trim whitespaces
-                for (int entryKey = 0; entryKey < arcTable.entryCount; ++entryKey)
+                for (int entryKey = 0; entryKey < arcTable.entryCount; entryKey++)
                 {
                     arcTable.fileList[entryKey].name = reader.ReadString().TrimEnd(new char[1]);
                 }

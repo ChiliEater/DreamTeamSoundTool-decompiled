@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using DTSoundData;
 
 namespace DreamTeamSoundToolConsole;
@@ -15,7 +16,15 @@ class Program
         {
             return;
         }
-        // Get path to ARC-File, then extract to the supplied or current directory
-        new SoundDataArc(args[0]).extractArchive(args.Length != 2 ? Directory.GetCurrentDirectory() : args[1]);
+
+        try
+        {
+            // Get path to ARC-File, parse archive, then extract to the supplied or current directory
+            new SoundDataArc(args[0]).extractArchive(args.Length != 2 ? Directory.GetCurrentDirectory() : args[1]);
+        }
+        catch (Exception e)
+        {
+            Debug.Write(e);
+        }
     }
 }
