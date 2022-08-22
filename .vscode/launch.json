@@ -8,10 +8,10 @@
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "clean",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/DreamTeamSoundToolConsole/bin/Debug/net6.0/DreamTeamSoundToolConsole.dll",
-            "args": ["haha"],
+            "args": ["${workspaceFolder}/arc/SoundData.arc", "${workspaceFolder}/arc/out"],
             "cwd": "${workspaceFolder}/DreamTeamSoundToolConsole",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",

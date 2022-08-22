@@ -36,6 +36,13 @@
                 "${workspaceFolder}/DreamTeamSoundToolConsole/DreamTeamSoundToolConsole.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "clean",
+            "command": "rm",
+            "type": "shell",
+            "args": ["-R", "${workspaceFolder}/arc/out/*"],
+            "dependsOn": "build"
         }
     ]
 }
