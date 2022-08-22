@@ -14,6 +14,7 @@ class Program
         // Exit if no arguments are supplied
         if (args.Length == 0)
         {
+            Console.WriteLine("Arguments: \"Path to ARC-File\" \"Path to output folder\"");
             return;
         }
 
