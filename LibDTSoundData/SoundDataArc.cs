@@ -6,47 +6,26 @@ using System.Text;
 
 namespace DTSoundData
 {
+    /// <summary>
+    /// Dictionary containing each sound type from the ARC-File
+    /// </summary>
+    /// <typeparam name="int">The Sound type ID</typeparam>
+    /// <typeparam name="string">The sound type's name</typeparam>
+    /// <returns></returns>
+    public enum soundTypes : int
+    {
+        WAVE, SE, SEB, STRSE, STRBGM, STRVOICE
+    }
+
     public class SoundDataArc
     {
         /// <summary>
         /// Relative path to the ARC-File
         /// </summary>
         public string path;
+        
         public Dictionary<int, SoundDataArcTable> tables = new Dictionary<int, SoundDataArcTable>();
 
-        /// <summary>
-        /// Dictionary containing each sound type from the ARC-File
-        /// </summary>
-        /// <typeparam name="int">The Sound type ID</typeparam>
-        /// <typeparam name="string">The sound type's name</typeparam>
-        /// <returns></returns>
-        public Dictionary<int, string> soundTypes = new Dictionary<int, string>()
-        {
-            {
-                0,
-                "WAVE"
-            },
-            {
-                1,
-                "SE"
-            },
-            {
-                2,
-                "SEB"
-            },
-            {
-                4,
-                "STRSE"
-            },
-            {
-                5,
-                "STRBGM"
-            },
-            {
-                6,
-                "STRVOICE"
-            }
-        };
 
         /// <summary>
         /// Constructor
