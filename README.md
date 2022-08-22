@@ -11,7 +11,7 @@ Binaries are available under [the relases tab](https://github.com/ChiliEater/Dre
 Simply point the program to your ARC file and your desired output folder:
 
 ```sh
-$ DreamTeamSoundTool.exe "PathToArc/SoundData.arc" "output"
+$ DreamTeamSoundTool-[platform] "PathToArc/SoundData.arc" "output"
 ```
 
 ## Compiling
